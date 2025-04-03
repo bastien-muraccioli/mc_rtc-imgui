@@ -17,27 +17,25 @@
 // #include <fmt/core.h>
 // #include <vector>
 
+#include <Eigen/Dense>
 #include <fmt/core.h>
 #include <fmt/ranges.h>
+#include <string>
 #include <string_view>
 #include <vector>
-#include <string>
-#include <Eigen/Dense>
 
-template <> 
-struct fmt::formatter<Eigen::VectorXd> : fmt::formatter<std::string> {
-    template <typename FormatContext>
-    auto format(const Eigen::VectorXd& vec, FormatContext& ctx) {
-        std::string result = "[";
-        for (int i = 0; i < vec.size(); ++i) {
-            result += fmt::format("{}{}", vec[i], (i < vec.size() - 1 ? ", " : ""));
-        }
-        result += "]";
-        return formatter<std::string>::format(result, ctx);
-    }
+template<>
+struct fmt::formatter<Eigen::VectorXd> : fmt::formatter<std::string>
+{
+  template<typename FormatContext>
+  auto format(const Eigen::VectorXd & vec, FormatContext & ctx)
+  {
+    std::string result = "[";
+    for(int i = 0; i < vec.size(); ++i) { result += fmt::format("{}{}", vec[i], (i < vec.size() - 1 ? ", " : "")); }
+    result += "]";
+    return formatter<std::string>::format(result, ctx);
+  }
 };
-
-
 
 namespace mc_rtc::imgui
 {
